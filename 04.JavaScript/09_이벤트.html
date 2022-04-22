@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이벤트</title>
+</head>
+<body>
+    <h1>이벤트</h1>
+    
+    <hr>
+
+    <h2>교재 정리</h2>
+
+    <h3>1. 이벤트 모델</h3>
+
+    <h4>1-1. 이벤트</h4>
+    <p>p474        주요 이벤트(종류) : load, unload, click, doubleclick, mousedown, mouseup, mousemove, <br>
+        mouseover, mouseout, contextmenu, focus, blur, submit, reset, resize, select, scroll, abort<br>
+        이벤트 속성 : on + 이벤트 -> onclick, onload, onmousedown ..<br>
+        표준 이벤트 모델에서는 btn3.addEventListener('click',  function (){ 과 같은 방식으로 이벤트 이름만.
+    </p>
+
+    <h4>1-2. 기본 모델</h4>
+    <p>고전 이벤트 모델 : element 찾은 후 onclick 이벤트 속성에 핸들러 함수 대입(연결)</p>
+
+    <h4>1-3. 인라인 모델</h4>
+
+    <h4>1-4. 리스너 등록</h4>
+    <p>표준 이벤트 모델 : addEventListener(type이벤트 종류, listener(핸들러 함수), useCapture(전달방법)), removeEventListener</p>
+    <p>이미 핸들러가 등록된 이벤트에 대해 다른 핸들러를 중복해서 등록 가능함</p>
+
+    <h3>2. 이벤트 고급</h3>
+    <h4>2-1. 이벤트 인수</h4>
+    <p>이벤트에 대한 추가 정보가 필요하다면 event 인수를 전달해야 한다. </p>
+    <p>this 인수로 이벤트가 발생한 객체를 구별한다.</p>
+
+    <h4>2-2. 이벤트 호출</h4>
+    <p>이벤트는 외부에서 호출할 수도 있다. </p>
+
+    <h4>2-3. 이벤트 무시</h4>
+    <p>onclick="return false;"</p>
+    <p>함수 내부에서도 사용 가능 : if 조건문 안에서</p>
+
+    <h4>2-4. 이벤트 버블링</h4>
+    <p>중첩된 객체를 클릭할 경우 여러 객체에 이벤트가 동시 발생 : div  안에 P</p>
+    <p>버블링 / 캡처링 / stopPropagation</p>
+    
+    
+    <h3>3. 이벤트 활용</h3>
+
+    <h4>3-1 load</h4>
+    <p>window.onload / wondow.onunload / window.onbeforeunload</p>
+
+    <h4>3-2. resize</h4>
+    <p>resize, scroll : 윈도우 크기, 스크롤 위치에 상관없이 특정 내용을 항상 같은 자리에 배치한다.</p>
+
+    <h4>3-3. 마우스 이벤트</h4>
+    <p>mousedown, mouseup, mouseover, mouseout,</p>
+
+    <hr>
+
+    <h2>이벤트 모델의 종류</h2>
+    <h3>고전 이벤트 모델</h3>
+
+    <button id="btn1">실행확인</button>
+    <button id="btn2">실행확인</button>
+
+    <script>
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+
+        btn1.onclick = function(){
+            alert('btn1이 클릭되었습니다.')
+        };
+
+        btn2.onclick = function (){
+            alert('btn2가 클릭되면서 btn1의 이벤트를 제거하였습니다..')
+            btn1.onclick = null;
+        };
+    </script>
+
+
+    <h3>인라인 이벤트 모델</h3>
+
+    <!-- 단순한 코드의 경우 직접 입력을 해도 좋으나 
+            복잡한 코드의 경우 script 태그에 함수를 만들어 호출하도록 연결하는 것을 선호-->
+    <!-- <button onclick="alert('잘못 클릭하셨습니다.');">실행확인</button> -->
+    <button onclick="test1();">실행확인</button>
+
+    <script>
+        function test1(){
+            var a = '안녕하세요. ';
+            var b = '만나서 반갑습니다.';
+            alert(a + b);
+        }
+    </script>
+
+    <h3>표준 이벤트 모델</h3>
+    <button id="btn3">실행확인</button>
+
+    <script>
+        var btn3 = document.getElementById('btn3');
+
+        // btn3.addEventListener('click', clickEventHandle);
+        // function clickEventHandle(event){
+        //     alert('표준 이벤트 모델 테스트');
+        //     console.dir(event);
+        // }
+        // btn3.addEventListener('click',  function (event){
+        //     alert('표준 이벤트 모델 테스트');
+        //     console.dir(event);
+        // });
+
+        btn3.addEventListener('click',  function (){
+            alert('표준 이벤트 모델 테스트');
+            console.dir(event);
+        });
+
+        btn3.addEventListener('mouseenter', function(event){
+            btn3.style.backgroundColor = 'red';
+            console.dir(event);
+        })
+        btn3.addEventListener('mouseout', function(event){
+            btn3.style.backgroundColor = 'green';
+            console.dir(event);
+        })
+        
+
+    </script>
+
+    <hr>
+    <h2>태그별 기본적으로 가지고 있는 이벤트 제거</h2>
+
+    <!-- 태그에 기본적으로 설정되어 있는 이벤트 제거
+            -> 이벤트 핸들러의 return 값을 false로 리턴하면 제거된다 -->
+    <a href="http://www.naver.com" onclick="return true;">네이버로 가기</a><br>
+    <a href="http://www.naver.com" onclick="return false;">네이버로 가기</a><br><br>
+
+    <!-- <form method="POST"> -->
+    <form method="GET">
+        <label>비밀번호 : <input type="password" id="pass1" name="pass1"></label><br>
+        <label>비밀번호 확인 : <input type="password" id="pass2" name="pass2"></label><br>
+        <br>
+        <input type="submit" value="제출"> 
+        <input type="submit" value="제출" onclick="return true;">
+        <input type="submit" value="제출" onclick="return false;">
+
+        <!-- 기본 이벤트가 있는 태그에 onclick 속성을 작성하면 
+                작성된 코드(test2():유효성 검사) 실행 후 기본 이벤트가 실행된다.  -->
+        <input type="submit" value="제출" onclick="return test2();">
+    </form>
+
+    <script>
+        function test2(){
+            var password1 = document.getElementById('pass1').value;
+            var password2 = document.getElementById('pass2').value;
+
+            console.log('password1 : ' + password1);
+            console.log('password2 : ' + password2);
+
+            if(password1 === password2){
+                alert('비밀번호가 일치합니다');
+
+                return true;
+            } else {
+                alert('비밀번호가 틀립니다');
+                document.getElementById('pass2').select();
+                return false;
+            }
+        }
+    </script>
+
+    <hr>
+
+    <form>
+        <label>아이디 : <input type="text" id="userId"></label><br>
+        영문자, 숫자로만 총 5 ~ 12자 사이로 입력해주세요. <br>
+
+        <input type="submit" value="회원 가입" onclick="return validate()">
+    </form>
+
+    <script>
+        function validate(){
+            var userId = document.getElementById('userId').value;
+            var regExp = /^[A-Za-z0-9]{5,12}$/;
+
+            if(repExp.test(userId)){
+                alert('아이디를 정상적으로 입력했습니다.')
+
+                return true;
+            } else {
+                alert('아이디를 잘못입력했습니다.')
+
+                return false;
+            }
+        }
+    </script>
+
+    <br><br><br><br><br>
+</body>
+</html>

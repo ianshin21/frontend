@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+
+    <style>
+
+        h1 {
+            font-weight: 900;
+            text-align: center;
+        }
+
+        ol {
+            list-style-type: none;
+        }
+        ul{
+            list-style-type: none;
+        }
+   
+        form{
+            background-color: green;
+        }
+
+        label{
+            height: 300%;
+            background-color: greenyellow;
+            border-radius: 20px;
+        }
+
+        input {
+            background-color: darkgreen;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>CSS3</h1>
+    <form action="" method="">
+        <fieldset>
+            <legend>Step 1 : 로그인 정보</legend>
+                <ol>
+                    <li><label>아이디 : <input type="text" name="userId" size="30"></label></li><br>
+                    <li><label>비밀번호 : <input type="password" name="userpwd" size="30" required></label></li><br>
+                    <li><label>비밀번호 확인 : <input type="password" name="userpwd" size="30" required></label></li><br>
+                    <li><label>회원등급 : <input type="text" name="userId" size="30" placeholder="준회원"></label></li><br>
+                </ol>
+        </fieldset>
+        <fieldset>
+            <legend>Step 2 : 개인정보</legend>
+                <ul>
+                    <li><label>이름  <input type="text" placeholder="5자 미만 공백없이"></label></li><br>
+                    <li><label>이메일 <input type="email" name="email" placeholder="이메일을 입력하세요."></label><br></li>
+                    <li><label>연락처 <input type="text"></label></li>
+                </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Step 3 : 코딩 숙련도(상, 중, 하)</legend>
+            <label>1. <input type="range" name="point" min="0" max="100" step="10" value="10"> </label>
+        </fieldset>
+        <br>
+         &nbsp; &nbsp;<input type="submit" value="제출">
+         <br>
+         <br>
+    </form>
+</body>
+</html>

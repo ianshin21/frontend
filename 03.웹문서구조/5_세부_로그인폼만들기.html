@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 폼 만들기</title>
+    <style>
+        div,
+        form,
+        input {
+            /* border:1px solid red; */
+            box-sizing: border-box;
+        }
+
+        #login_form {
+            width: 300px;
+            height: 120px;
+        }
+
+        #login_form>* {
+            width: 100%;
+        }
+
+        #login_form_input {
+            height: 80%
+        }
+
+        #login_form_etc {
+            height: 20%;
+            text-align: center;
+        }
+
+        #login_form_input>div {
+            height: 100%;
+            float: left;
+        }
+
+        #login_input_id_pwd {
+            width: 65%
+        }
+
+        #login_input_btn {
+            width: 35%
+        }
+
+        /* 세부 요소  */
+        #login_input_id_pwd>input {
+            width: 100%;
+            height: 50%;
+        }
+
+        #login_input_btn>input {
+            width: 100%;
+            height: 100%;
+        }
+
+        #login_form_etc>a {
+            color: black;
+            text-decoration: none;
+            margin: 10px;
+            /* text-align:center; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1. 전체 내용을 감싸는 div -->
+    <div id="login_form">
+        <!-- 2_1. 입력을 받는 input요소들이 위치할 영역 -->
+        <form action="" id="login_form_input">
+            <!-- 3_1. ID/PWD input요소가 들어갈 div -->
+            <div id="login_input_id_pwd">
+                <!-- 아이디 input -->
+                <input type="text" name="userId" placeholder="아이디를 입력하시오" required>
+                <!-- 비밀번호 input -->
+                <input type="password" name="userPwd" placeholder="비밀번호를 입력하시오" required>
+            </div>
+            <!-- 3_2. 로그인 버튼이 들어갈 div -->
+            <div id="login_input_btn">
+                <!-- 로그인버튼 input -->
+                <input type="submit" value="로그인">
+            </div>
+        </form>
+
+        <!-- 2_2. 회원가입페이지, ID/PWD 찾기 페이지 이동용 a 가 들어갈 영역-->
+        <div id="login_form_etc">
+            <a href="">회원가입</a>
+            <a href="">ID 찾기</a>
+            <a href="">PWD 찾기</a>
+        </div>
+    </div>
+</body>
+</html>

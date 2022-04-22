@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>객체(Object)</title>
+    <style>
+        .area {
+            background-color: lightgray;
+            border: 1px solid;
+            height: 300px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>객체</h1>
+    <hr>
+
+
+
+    <h2>객체 선언 및 호출</h2>
+
+    <p>
+        중괄호 { }를 사용해서 객체를 생성하고 속성에는 모든 자료형이 올 수 있다. <br>
+        객체는 키값을 사용해서 속성을 식별한다.  
+    </p>
+
+    <button onclick="test1();">실행확인</button>
+    <div id="area1" class="area"></div>
+
+    <script>
+        function test1(){
+            var area = document.getElementById('area1');
+            var product = {
+                pName: '아이폰12',
+                price: '1000000',
+                brand: '애플',
+                spec: ['OLED', 'IOS14']
+             };
+
+            console.log(product);
+
+             area.innerHTML += `product : ${product} <br><br>`;
+             
+             // 객체의 속성에 접근하는 방법 
+             // 방법 1 : 객체명['속성명'] --> 그에 해당하는 속성값 리턴
+             area.innerHTML += `<b>객체명['속성명']으로 접근하기</b><br>`;
+             area.innerHTML += `product['pName'] : ${product['pName']} <br>`;
+             area.innerHTML += `product['price'] : ${product['price']} <br>`;
+             area.innerHTML += `product['brand'] : ${product['brand']} <br>`;
+             area.innerHTML += `product['spec'][0] : ${product['spec'][0]} <br>`;
+             area.innerHTML += `product['spec'][1] : ${product['spec'][1]} <br><br>`;
+
+             //방법 2 : 객체명.속성명  --> 그에 해당하는 속성값 리턴
+             area.innerHTML += `<b>객체명.속성명으로 접근하기</b><br>`;
+             area.innerHTML += `product.pName : ${product.pName} <br>`;
+             area.innerHTML += `product.price : ${product.price} <br>`;
+             area.innerHTML += `product.brand : ${product.brand} <br>`;
+             area.innerHTML += `product.spec[0] : ${product.spec[0]} <br>`;
+             area.innerHTML += `product.spec[1] : ${product.spec[1]} <br>`;
+
+        }
+    </script>
+
+
+
+    <h2>객체의 키 식별자(특수경우)</h2>
+
+    <button onclick="test2();">실행확인</button>
+
+    <script>
+        function test2(){
+            // 속성명 제시시 공백이나 특수문자가 들어가야 하는 경우 ' ', " " 로 묶어줘야 한다. 
+            var obj = {
+                'user name': 'ian',
+                "age!!": '20'
+            }
+
+            //공백이나 특수문자가 키 값인 경우 다음의 방식으로는 값을 가져올 수 없다.  :  obj.'user name' / obj.age!!
+            // [] 대괄호를 이용하면 공백이나 특수문자가 키 값인 경우 값을 가져올 수 있다. 
+            alert(`user name : ${obj['user name']}, age!! : ${obj['age!!']}`);
+        
+        }
+    </script>
+
+    <h2>교재 추가 내용</h2>
+    <p>
+        1. 값과 참조 p250 : 기본 자료형 끼리의 대입에서는 원본 값이 바뀌지 않지만 <br>
+                                  객체는 주소값을 참조하므로 전달받은 변수에서 값이 수정되면 원본 객체의 멤버값도 바뀐다.<br>
+        2. 객체가 다른 객체를 멤버로 포함하여 중첩하는 것 p254 : Java 객체 -> class 에서 Person과 Phone의 관계 
+    </p>
+
+
+
+    <h2>객체의 매소드 속성</h2>
+    <p>
+        객체의 속성 중 함수 자료형인 속성을 메소드라고 부른다. 
+    </p>
+
+    <button onclick="test3();">실행확인</button>
+
+    <script>
+        function test3(){
+            var name = '아무개'
+
+            var dog = {
+                name : '누렁이',
+                kind : '진돗개',
+                eat : function(food){
+                    // this를 명시적으로 반드시 사용하도록 
+                    console.log(this.kind + '종인 ' + this.name + '가 ' + food + '를 먹고 있네요...');
+                    // console.log(this.kind + '종인 ' + name + '가 ' + food + '를 먹고 있네요...');
+
+                    console.log('name : ' + name);
+                    console.log('this.name : ' + this.name);
+                }
+            };
+            // dog.eat('닭가슴살');
+            dog['eat']('훈제연어');
+        }
+    </script>
+
+    <h2>객체와 반복문</h2>
+    <p>
+        객체가 가지고 있는 모든 속성들에 순차적으로 접근하려면  <br>
+        단순 for문으로는 불가능하다. 따라서 for in 문을 사용한다.  <br>
+        (index로 구분되지 않기 때문. index로 접근하지 않고 키값으로 접근). 
+    </p>
+
+    <button onclick="test4();">실행확인</button>
+
+    <script>
+        function test4(){
+            var game = {
+                title : '카트라이더',
+                price : 0,
+                supportOS : ['win32', 'win64'],
+                service : true
+            }
+            console.log(game);
+
+            for (var key in game) {
+               console.log(key);
+               console.log(`key : ${key}, game[key] : ${game[key]}`);              
+            }
+
+        }
+    </script>
+
+    <h2>객체의 속성 추가 및 제거</h2>
+    <p>
+        처음 객체  생성 이후 새로운 속성을 추가하거나 제거하는 것을 <br>
+        동적으로 속성을 추가 혹은 제거한다 라고 한다. 
+    </p>
+
+    <button onclick="test5();">실행확인</button>
+
+    <script>
+        function test5(){
+            // 빈 객체 선언
+            var student = {};
+            
+            // 객체에 속성 추가
+            student.name = '홍길동';
+            student.age = 20;
+            student.dream = '개발자';
+
+            // 객체에 매소도 추가
+            student.toString = function(){
+                var str = '';
+
+                // this.name            여기서 자신의 객체에 접근하기 위해 this 사용
+                // this.age
+
+                for (const key in this) {
+                    // str += key + ' : ' + this[key] + ' ';      
+                    if(key !== 'toString'){
+                        str += key + ' : ' + this[key] + ' ';      
+                    }                             
+                }
+                return str;
+            };
+
+            console.log(student);
+            console.log(student.toString());
+            console.log('"dream" in student : ' + ('dream' in student));
+            
+
+
+            console.log('name' in student);
+            console.log('age' in student);
+            console.log('dream' in student);
+            console.log('hobby' in student);
+            
+            delete(student.dream);
+            console.log(student.toString());
+            console.log('"dream" in student : ' + ('dream' in student));
+            //var myDog = new Dog("흰색", "마루", 1); 생성자함수를 통해 객체 생성했을 때 다음과 같이 객체 프로퍼티 삭제
+		    // delete myDog.age; // age 프로퍼티를 삭제함.
+
+
+        }
+    </script>
+
+    <h2>객체 배열</h2>
+    <p>
+        객체와 배열을 사용해서 데이터를 관리할 수 있다. 
+    </p>
+
+    <button onclick="test6();">실행확인</button>
+    <div id="area2" class="area"></div>
+
+    <script>
+        function test6(){
+            var area = document.getElementById('area2');
+            // 배열을 사용하지 않았을 경우
+            var student1 = {name: '장', java: 100, oracle: 100, getSum: function(){}, getAvg: function(){}};
+            var student2 = {name: '최', java: 60, oracle: 70, getSum: function(){}, getAvg: function(){}};
+            var student3 = {name: '김', java: 70, oracle: 80, getSum: function(){}, getAvg: function(){}};
+            var student4 = {name: '이', java: 80, oracle: 90, getSum: function(){}, getAvg: function(){}};
+            var student5 = {name: '박', java: 50, oracle: 40, getSum: function(){}, getAvg: function(){}};
+
+            // 배열 선언 및 초기화
+            var students = [
+                 {name: '장', java: 100, oracle: 100},
+                 {name: '최', java: 60, oracle: 70},
+            ];
+
+            //배열에 요소 추가
+            students.push( {name: '김', java: 70, oracle: 80});
+            students.push(student4);
+            students.push(student5);
+
+            // console.log(students);
+
+            // 배열에 담겨있는 모든 객체에 매소드 추가
+            for (let i = 0; i < students.length; i++) {
+                students[i].getSum = function(){
+                    return this.java + this.oracle;
+                };
+
+                students[i].getAvg = function(){
+                    return this.getSum() / 2;
+                };               
+            }
+
+            console.log(students);
+
+            // 모든 학생의 정보가 담긴 배열을 출력 (이름, 총점, 평균)
+            for (const key in students) {
+                with(students[key]){
+                    area.innerHTML += `이름 : ${name}, 총점 : ${getSum()}, 평균 : ${getAvg()} <br>`;
+                }               
+            }
+        }
+
+    </script>
+
+    <h2>생성자 함수 </h2>
+    <p>
+        new 키워드를 사용해  객체를 생성할 수 있는 함수를 의미
+    </p>
+
+    <button onclick="test7();">실행확인</button>
+    <div id="area3" class="area"></div>
+
+    <script>
+        function Student(name, java, oracle){
+            // 속성 정의
+            this.name = name;
+            this.java = java;
+            this.oracle = oracle;
+
+            // 메소드 정의
+            // this.getSum = function(){
+            //         return this.java + this.oracle;
+            //     };
+            // this.getAvg = function(){
+            //         return this.getSum() / 2;
+            //     }
+        }
+
+        Student.prototype.getSum = function(){
+                    return this.java + this.oracle;
+                };
+
+        Student.prototype.getAvg = function(){
+                    return this.getSum() / 2;
+                }
+
+        function test7(){
+            var area = document.getElementById('area3');
+            var student  = new Student('장', 100, 100);             // 생성자로부터 객체 생성
+            var students = [];
+
+            students.push(student);
+            students.push(new Student('이', 90, 90));
+            students.push(new Student('박', 90, 90));
+
+            console.log(students)
+            // 생성자 함수로 만들어진 객체의경우 해당 객체가 어떤 생성자 함수로 생성되었는지 instanceof 연산자로 검사 가능
+            console.log(student instanceof Student);
+            console.log(students instanceof Student);
+
+             // 모든 학생의 정보가 담긴 배열을 출력 (이름, 총점, 평균)
+            for (const key in students) {
+                with(students[key]){
+                    area.innerHTML += `이름 : ${name}, ${java}, ${oracle}, 총점 : ${getSum()}, 평균 : ${getAvg()} <br>`;
+                }              
+            }
+        }
+    </script>
+
+
+    <h2>캡슐화</h2>
+    <p>
+        생성자 함수에서 속성 정의시 <br>
+        this. 키워드를 사용하지 않고 지역변수로 선언할 경우 <br>
+        캡슐화된 객체의 속성은 직접 접근할 수 없으므로 간접적으로 접근할 수 있도록 get/setter 메소드 정의해야 한다. 
+    </p>
+
+    <button onclick="test8();">실행확인</button>
+    <div id="area4" class="area"></div>
+
+    <script>
+        area = document.getElementById("area4");
+
+        function GirlGroup(n, m){
+            // this.name = n;
+            // this.members = m;
+            // const name = n;
+            // const members = m;
+            let name = n;
+            let members = m;
+
+            this.getGroupName = function (){
+                return name;
+            };
+
+            this.getMembers = function(){
+                return members;
+            };
+            this.getMemberCount = function(){
+                return members.length;
+            };
+
+            this.setGroupName = function (n){
+                name = n;
+            };
+
+            this.setMembers = function(m){
+                members = m;
+            };
+ 
+        }
+
+
+        function test8(){
+            // 생성자 함수 사용 객체 생성
+            var redVelvet = new GirlGroup('레드벨벳', ['조이', '아이린', '웬디', '슬기', '예리']);
+
+            console.log(redVelvet);
+            // console.log(redVelvet.name, redVelvet.members);         // 캡슐화되어있기 때문에 undefined 로 나옴
+            console.log(redVelvet.getGroupName(), redVelvet.getMembers(), redVelvet.getMemberCount());
+            
+            redVelvet.setGroupName('방탄소년단');
+            console.log(redVelvet.getGroupName());
+
+            area.innerHTML = redVelvet;     // [object Object] 만 들어감 
+        }
+    </script>
+
+    <br><br><br><br><br><br>
+</body>
+</html>

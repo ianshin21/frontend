@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>함수</title>
+</head>
+<body>
+    <h1>함수(function)</h1>
+
+    <hr>
+
+    <h2>함수 선언</h2>
+    <h3>선언적 함수</h3>
+    <p>
+        function 키워드에 <mark>함수명</mark> 작성하여 사용하는 방법
+    </p>
+    
+    <button onclick="test1();">실행확인</button>
+
+    <script>
+        // test1();
+
+        function test1(){
+            alert('test1() 함수 실행됨');
+        }
+    </script>
+
+    <h3>익명함수</h3>
+    <p>
+        함수명을 작성하지 않고 변수에 대입하는 방법<br>
+        ** 내부함수 : 교재 p207 <br>
+        ** 익명함수, 변수에 변수 : 교재 p 209, 213 <br>
+        ** 콜백함수 : 교재 p214 <br>
+        ** 클로저 : 교재 p215<br>
+        ** 동적함수, 재귀함수 등 ......  클로저 때문에 하기 싫어짐 .....
+    </p>
+
+    <button id="btn1">실행확인</button>
+
+    <script>
+        var btn1 = document.getElementById('btn1')
+
+        btn1.onclick = function (){
+            alert('이벤트 핸들러를 통해 실행~!')
+        }
+    </script>
+
+    <h3>스스로 실행하는 함수</h3>
+    <p>
+        함수 정의와 동시에 즉시 실행, 호출이 따로 필요없으며 단 한번만 호출되며 다시 호출할 수 없다. <br>
+        함수의 이름도 없고, 그러므로 일종의 익명함수이며, 변수로 선언되지도 않았다. 하나의 수식내에서 바로 사용한다고 보면된다. 
+    </p>
+
+    <p id="p1"></p>
+
+    <script>
+        (
+            function (a, b){
+                document.getElementById('p1').innerHTML = a + ' : ' +  b + ' : 자동으로 혼자 실행';
+            }
+        )(10, 20);
+    </script>    
+
+    <hr>
+
+    <h2>함수의 매개변수</h2>
+
+    <h3>매개 변수</h3>
+
+         형식인수, 실인수 : 실인수가 형식인수보다 많으면 나머지는 무시한다. 실인수가 형식인수보다 적으면 리턴값은 NaN, 혹은 없다(?) <br>
+         if (n == undefined) n = 100   과 같은 방식으로 설정하는 '디콜트 인수기법'도 있다. <br><br>
+
+    <button id="btn2">실행확인</button>
+
+    <script>
+        var btn2 = document.getElementById("btn2");
+
+        btn2.addEventListener('click', function(){
+            alert('실행');                          // 여기 함수 자체의 alert
+            test2('안녕하세요.');               // 함수 test2로 전달되는 값 = 인수, 이 값을 받아 함수 test2()가 실행, 이 문구를 alert으로 띄운다.
+            test2(prompt('메세지를 입력하시오.'));
+
+            test2('반갑습니다. ' + '또 만났네요.');
+            test2();
+        });
+
+        function test2(value){                  //여기서 value = 매개변수라고 부른다.
+            alert(value);
+        }
+    </script>
+
+    <h3>매개변수 arguments</h3>
+    <p id="p2"></p>
+
+    <button onclick="test3(11, 22, 33, 44, 1, 2, 3);">실행확인1</button>
+    <button onclick="test3('니들이 ', '게맛을 ', '알아?');">실행확인2</button>
+
+    <script>
+        function test3(){
+            // arguments
+            // - 함수 실행시 전달되는 값은 arguments라는 배열에 값들이 담긴다. 
+            // alert(arguments);  로 일단 확인하고.....
+
+            var sum = 0;
+            // var i = 10;
+            if (typeof(arguments[0]) == "string"){
+                sum = "";
+            }
+
+            console.log(arguments);
+            console.log(arguments.length);
+
+            for (var i = 0; i < arguments.length; i++) {
+                sum += arguments[i];               
+            }
+
+            console.log('i : ' + i);           
+            // scope : 
+             // var 변수는 for문 안이 아니라 함수 전 영역에서 사용된다. 
+             // 그래서 let이라는 함수가 ES6에서 새로 생겼다. let은 for문 안에서만 사용
+             // let 변수는 중복 사용도 안된다. 
+            console.log('sum : ' + sum);
+
+            document.getElementById('p2').innerHTML = sum + "<br><br>";
+
+            for (var i in arguments){
+                document.getElementById('p2').innerHTML += "arguments[" + i + "] : " + arguments[i] + "<br>";
+            }
+
+        }
+    </script>
+
+    <h3>매개변수에 this 요소 전달하기</h3>
+
+    <!-- this : 이벤트 발생시 해당 이벤트가 발생한 요소 -->
+    <button onclick="test4(this);">버튼1</button>
+    <button onclick="test4(this.innerHTML);">버튼2</button>
+    <input type="button" onclick="test4(this.value);" value="버튼3">
+
+    <script>
+        function test4(element){
+            console.log(element)
+        }
+    </script>
+
+    <hr>
+
+    <h2>함수의 리턴</h2>
+
+    <h3>일반적인 값 리턴</h3>
+
+    <p>
+        결과 값을 return하면 다음의 test5()에서처럼 ran() 호출문을 하나의 값처럼 사용할 수 있다.<br>
+        return; 명령을 만나면 함수는 즉시 실행을 종료하고 호출원으로 복귀한다. <br>
+                  함수 중간에서 리턴하면 이후 모든 문장은 실행되지 않는다. undefined 출력
+    </p>
+    <p id="p3"></p>
+
+    <button onclick="test5();">실행확인</button>
+
+    <script>
+        function test5(){
+
+            var random = ran();
+            document.getElementById('p3').innerHTML += random + ' ';
+        }
+
+        function ran() {
+            var random = parseInt(Math.random() * 100 + 1);
+
+            if (random < 10)  return;           //undefined 
+
+            return random;
+        }
+    </script>
+
+    <h3>익명함수를 리턴하는 함수</h3>
+
+    <label>이름 : <input type="text" id="name"></label>
+    <button onclick="test6();">실행확인</button>
+    <button onclick="test6_1();">실행확인2</button>
+
+    <script>
+        function test6(){
+            // 클로저 : 내부함수가 사용하는 외부함수의 지역변수는 내부함수가 소멸할 때까지 소멸되지 않는 특성
+            var userName = document.getElementById('name').value;
+            console.log(userName);
+
+                alert(userName + '님 환영해~~');
+
+            return function(){
+                alert(userName + '님 환영해~~');
+            };
+
+        }
+    </script>
+
+    <script>
+        function test6_1(){
+ 
+            var userName = document.getElementById('name').value;
+            console.log(userName);
+
+            var inner = function(){
+                alert(userName + '님 환영해~~');
+            };
+
+            return inner;
+
+        }
+    </script>
+    <hr>
+
+    <h2>내장함수</h2>
+
+    <h3>eval( )</h3>
+    <p>
+        문자열을 자바스크립트 코드로 변환해서 실행하는 함수
+    </p>
+
+    <label>계산식 : <input type="text" id="calc"></label>
+    <button onclick="test7();">실행확인</button>
+
+    <p id="p4"></p>
+
+    <script>
+        function test7(){
+            var p4 = document.getElementById('p4');
+            var calc = document.getElementById('calc');
+
+            p4.innerHTML += `실제 입력된 값 : ${calc.value} <br>`;
+            p4.innerHTML += `eval() 후 ${eval(calc.value)} <br>`;
+
+            // 10 + 10    계산식 입력창에 입력 후 실행확인
+            var a = '안녕하세요';  var b = '만나서 반갑습니다';  //a+b  : 입력후 실행확인
+        
+        }
+    </script>
+
+    <h3>infinity와 NaN</h3>
+    <p>
+        자바스크립트의 경우 어떤 수를 0으로 나누면 infinity라는 값이 들어가게 되고 <br>
+        자바스크립트가 표현할 수 없는 숫자는 NaN로 표시된다.
+    </p>
+
+    <button onclick="test8();">실행확인</button>
+
+    <p id="p5"></p>
+
+    <script>
+        function test8(){
+            var num1 = 10 / 0;
+            var num2 = 10 / 'a';
+            var p5 = document.getElementById('p5');
+
+            p5.innerHTML += `10 / 0 : ${num1} <br>`;
+            p5.innerHTML += `10 / a : ${num2} <br>`;
+            p5.innerHTML += `num1 == infinity : ${num1 == Infinity} <br>`;
+            p5.innerHTML += `isFinite(num1) : ${isFinite(num1)} <br>`;
+            p5.innerHTML += `num2 == NaN : ${num2 == NaN} <br>`;
+            p5.innerHTML += `isNaN(num2) : ${isNaN(num2)} <br>`;
+
+        }
+    </script>
+
+    <br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>기본선택자</title>
+    <!-- jQuery 연결 -->
+    <script src="js/jquery-3.5.1.js"></script>
+
+</head>
+<body>
+    <h1>기본선택자</h1>
+
+    <hr>
+
+    <h2>1. 아이디 선택자</h2>
+    <p>
+        고유한 아이디 속성 값을 가진 요소만을 선택하는 선택자 
+    </p>
+    <h1 id="id1">ID1</h1>
+    <h1 id="id2">ID2</h1>
+
+    <script>
+        $(document).ready(function(){
+
+            // 순수 자바스크립트를 활용한 방식
+            var id1 = document.getElementById("id1");
+
+            id1.style.color = "red";    //요소의 속성을 통해서 접근 후 수정
+
+            // jQuery 
+            // var id2 = $("#id2");
+            // id2.css("color", "hotpink");    // 메소드를 통해서 수정 
+            $("#id2").css("color", "hotpink");  
+        });
+    </script>
+
+    <hr>
+
+    <h2>2. 태그 선택자</h2>
+    <p>JAVA</p>
+    <P>Oracle</P>
+    <p>HTML5</p>
+    <h5>CSS</h5>
+    <h5>javascript</h5>
+
+    <script>
+        // $("h5").css("color", "red");   
+        // dom을 읽고 난 후에 수행되기 때문에 실행은 되지만 jQuery ready()로 실행하자
+        $(function(){
+            var p = document.getElementsByTagName('p');     
+                // p태그가 여러개라 배열이 담김
+                // p.style.color = "blue"   // 이런 건 에러 -> 반복문 사용해서 접근
+
+            for (let i = 0; i < p.length; i++) {
+                p[i].style.color = "red";
+            }
+
+            // for (const key in p) {
+            //    p[key].style.color = 'red';
+            //    console.log(key, p);
+            // }
+
+            // jQuery ($('태그명'))
+            $("h5").css('color', 'blue');
+                // 배열은 아니지만 jQuery에서 h5를 wrapping 해 준다. 배열처럼 보인다.
+            // $('h5, p').css('background-color', 'yellowGreen')
+            $('h5, p').css('backgroundColor', 'yellowGreen')
+        });
+    </script>
+
+    <hr>
+
+    <h2>3. 클래스 선택자</h2>
+    <p>
+        클래스 속성을 가진 요소들을 선택하는 선택자
+    </p>
+
+    <h1 class="item">class1</h1>
+    <h1 class="item">class2</h1>
+    <h1 class="item">class3</h1>
+    
+    <script>
+        jQuery(document).ready(function(){
+            //자바스크립트 방식
+            var items = document.getElementsByClassName('item');  // 배열을 반환
+
+            for (let i = 0; i < items.length; i++) {
+                items[i].style.color = 'orange';              
+            }
+
+            //jQuery
+            $('.item').css('backgroundColor', 'yellow');
+            // $('.item').css('color', 'blue').css('backgroundColor', 'yellow');
+        });
+    </script>
+
+    <hr>
+
+    <h2>4. 선택자 활용</h2>
+
+    <input type="text" id="text1">
+    <input type="checkbox" id="check1">
+
+    <script>
+        $(document).ready(function(){
+
+            // setter 역할
+            $('#text1').val("안녕하세요.");
+            $('#check1').prop('checked', true);
+
+            // getter 역할
+            console.log( $('#text1').val())             
+            console.log( $('#check1').prop('checked'))
+        });
+    </script>
+
+    <br><br><br><br><br>
+</body>
+</html>

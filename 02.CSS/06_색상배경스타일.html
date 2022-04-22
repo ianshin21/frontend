@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>색상 스타일</title>
+    <style>
+        body{
+            /* background-color: indianred; */
+            /* background-color: rgb(205, 92, 92); */
+            /* background-color: hsl(0, 53%, 58%); */
+            /* background-color: rgba(205, 91, 91, .3); */
+            background-color: hsla(0, 53%, 58%, 0.3);
+        }
+
+        #div-bg{
+            width: 50%;
+            background-color: #ffffff;
+        }
+
+        .clip-test{
+            background-color: white;
+            margin: 30px;
+            padding: 30px;
+            width: 30%;
+            border: 15px dashed rgba(0, 0, 0, .3);
+        }
+
+        #clip1{
+            background-clip: border-box;
+        }
+
+        #clip2{
+            background-clip: padding-box;
+        }
+
+        #clip3{
+            background-clip: content-box;
+        }
+
+        #bg-img{
+            border: 15px solid rgba(0, 0, 0, .3);
+            width: 90%;
+            height: 800px;
+            padding: 50px;
+            background-image: url(../resources/image/bgsample.PNG);
+
+            /*  이미지 반복 설정*/
+            /* 기본값 : repeat*/
+            /* background-repeat: repeat;     */
+            /* background-repeat: repeat-x; */
+            /* background-repeat: repeat-y; */
+            background-repeat: no-repeat;
+
+            /* 이미지 크기 설정 */
+            /* 기본값 : auto */
+            /* background-size: auto; */
+            /* background-size: contain; */
+            /* background-size: cover; */
+            /* background-size: 350px 200px; */
+            /* background-size: 100% 100%; */
+
+            /* 이미지 위치 설정 */
+            /* background-position: left top; */
+            /* background-position: 0 0; */
+            /* background-position: right top; */
+            /* background-position: center top; */
+            /* background-position: left center; */
+            /* background-position: right center; */
+            /* background-position: center center; */
+            /* background-position: center; */
+            /* background-position: left bottom; */
+            /* background-position: right bottom; */
+            /* background-position: center bottom; */
+            /* background-position: 50px 50px; */
+            /* background-position: 30% 30%; */
+
+            /* 이미지 배치 기준 설정 */
+            /* 아래가 기본값 */
+            /* background-origin: padding-box; */
+            background-origin: border-box;
+            /* background-origin: content-box; */
+
+            /* 이미지 고정하도록 설정 */
+            /* background-attachment: scroll; */
+            background-attachment: fixed;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>색상 스타일</h1>
+    <hr>
+    <h2>background-color</h2>
+    <h3>div 배경 지정하기</h3>
+    <div id="div-bg">
+        조아제약과 일간스포츠가 공동 제정한 '2020 조아제약 프로야구 대상' 
+        시상식이 8일 오전 11시 서울 중구 더 플라자 호텔 그랜드볼룸에서 열렸다. 
+        올해 시상식은 예년과 달리 사회적 거리두기 상향 조치에 따라 간소하게 진행됐다. 
+        총 18개 부문 시상자가 가려진 가운데 관심이 쏠린 대상은 NC를 통합 우승으로
+         이끈 안방마님 양의지가 차지했다. 양의지에게는 상금 1000만원과 트로피가 수여됐다
+    </div>
+
+    <hr>
+
+    <h2>background-clip</h2>
+    <div class="clip-test" id="clip1">
+        조아제약과 일간스포츠가 공동 제정한 '2020 조아제약 프로야구 대상' 
+        시상식이 8일 오전 11시 서울 중구 더 플라자 호텔 그랜드볼룸에서 열렸다. 
+        올해 시상식은 예년과 달리 사회적 거리두기 상향 조치에 따라 간소하게 진행됐다. 
+        총 18개 부문 시상자가 가려진 가운데 관심이 쏠린 대상은 NC를 통합 우승으로
+         이끈 안방마님 양의지가 차지했다. 양의지에게는 상금 1000만원과 트로피가 수여됐다
+    </div>
+    <div class="clip-test" id="clip2">
+        조아제약과 일간스포츠가 공동 제정한 '2020 조아제약 프로야구 대상' 
+        시상식이 8일 오전 11시 서울 중구 더 플라자 호텔 그랜드볼룸에서 열렸다. 
+        올해 시상식은 예년과 달리 사회적 거리두기 상향 조치에 따라 간소하게 진행됐다. 
+        총 18개 부문 시상자가 가려진 가운데 관심이 쏠린 대상은 NC를 통합 우승으로
+         이끈 안방마님 양의지가 차지했다. 양의지에게는 상금 1000만원과 트로피가 수여됐다
+    </div>
+    <div class="clip-test" id="clip3">
+        조아제약과 일간스포츠가 공동 제정한 '2020 조아제약 프로야구 대상' 
+        시상식이 8일 오전 11시 서울 중구 더 플라자 호텔 그랜드볼룸에서 열렸다. 
+        올해 시상식은 예년과 달리 사회적 거리두기 상향 조치에 따라 간소하게 진행됐다. 
+        총 18개 부문 시상자가 가려진 가운데 관심이 쏠린 대상은 NC를 통합 우승으로
+         이끈 안방마님 양의지가 차지했다. 양의지에게는 상금 1000만원과 트로피가 수여됐다
+    </div>
+
+    <hr>
+
+    <h2>배경 이미지</h2>
+    <h3>
+        background-image,
+        background-repeat,
+        background-size,
+        background-position,
+        background-origin,
+        background-attachment,
+
+    </h3>
+
+    <div id="bg-img"></div>
+
+
+    <br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>기본 문법</title>
+    <style>
+        .area {
+            width: 300px;
+            height: 200px;
+            border: 1px solid;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <h1>기본 문법</h1>
+
+    <hr>
+
+    <h2>1. 변수와 자료형</h2>
+
+    <h3>1) 변수 선언</h3>
+    <p>
+        - 함수 내부에서 'var 변수명;'으로 선언하면 함수에서만 사용가능한 지역변수가 된다. <br>
+        - 함수 내부에 '변수명;'으로 선언하거나 함수 밖에서 '변수명;'으로 선언하면 전역변수가 된다. <br>
+        - 전역변수와 지역변수가 동일한 이름인 경우 함수내부에서 호출하면 지역변수가 우선권을 가진다. <br>
+        - 전역변수 사용시 'window.변수명' 혹은 'this.변수명'으로 표현해서 지역변수와 구분한다. <br>
+        - 전역변수는 해당 window 어디서나 사용할 수 있고 지역변수는 해당 함수 내에서만 사용 가능하다. 
+    </p>
+
+    <script>
+        // 전역변수 선언
+        str1 = '전역변수';
+        //함수 외부에 선언한 변수는 var를 붙여도 전역변수
+        var str2 = 'var전역변수';
+
+        // onload에서 지정한 함수 : 자바스크립트에서 페이지가 모두 로드되면 자동으로 실행되는 함수를 구현시 사용
+        // 자동실행 : on이벤트 중 하나 :  하나의 페이지에서 하나의 window.onnload 만 사용
+        window.onload = function(){
+                var str1 = '지역변수1'
+                var str3 = '지역변수2'
+
+                console.log('str1 : ' + str1); // 지역변수1 가 실행됨
+                console.log("this.str1 : " + this.str1);
+                console.log('window.str1 : ' + window.str1);
+
+                console.log('str2 : ' + str2);
+                console.log('this.str2 : ' + this.str2);
+                console.log('window.str2 : ' + window.str2);
+
+                console.log('str3 : ' + str3);          // 지역변수2
+                console.log('this.str3 : ' + this.str3);    // undefined
+                console.log('window.str3 : ' + window.str3);    // undefined
+
+                what  = '나는 뭐지?';       // 전역변수 : 함수 안에서 선언되어도 var를 사용하지 않았기 때문에 전역변수
+
+                showwhat();
+        }
+        function showwhat(){
+            console.log('what : ' + what);      // 나는 뭐지?
+            console.log('this.what : ' + this.what);    // 나는 뭐지?
+            console.log('window.what : ' + window.what);    // 나는 뭐지?
+        }
+    </script>
+
+
+    <hr>
+
+    <script>
+        var notinit;
+        document.write("초기화 되지 않은 변수 : " + notinit);
+        // document.write("존재하지 않은 변수 : " + ghost);
+        document.write("<br>")
+
+        var veryBig = 1234/0;
+        document.write("veryBig = " + veryBig + "<br>");
+
+        var noNumber = Math.sqrt(-2);
+        document.write("noNumber = " + noNumber);
+    </script>
+
+    <hr>
+
+    <h3>2) 자료형</h3>
+    <p>
+        자바스크립트에서는 변수에 별도로 자료형을 지정해주지 않고 리터럴에 의해 자료형 결정된다.<br>
+    </p>
+
+    <button onclick="typeTest();">자료형 테스트</button>
+
+    <br>
+    <br>
+
+    <div id="area1" class="area"></div>
+
+    <script>
+        function typeTest(){
+
+            const MILE = 1.609;                 // 상수
+
+            var name = '아무개'
+            var age = 20;
+            var check = true;                               // 논리값
+            var hobby = ['축구', '농구', '야구'];       //배열
+            var user = {
+                name : 'ianHD',
+                age : 20,
+                id : 'ian'
+            };                                  // {} : 객체 리터럴 : new문 쓰지 않는다.
+
+            var testFunction = function(num1, num2){
+                var sum = num1 + num2;
+
+                alert(sum);
+            }                                   // 익명함수 : 함수도 객체로 본다. 변수에 담을 수 있다. 
+                                // 콜백함수는 간단하게 다른 함수에 매개변수로 넘겨준 함수를 말한다.
+                                // 매개변수로 넘겨받은 함수는 일단 넘겨받고, 때가 되면 나중에 호출(called back)한다는 것이 콜백함수의 개념
+
+            testFunction(1, 2);
+
+            var area = document.getElementById("area1");
+
+            area.innerHTML = '<h4>안녕하세요</h4>';
+            area.innerHTML += MILE + '<br>';
+            area.innerHTML += name + '<br>';
+            area.innerHTML += age + '<br>';
+            area.innerHTML += check + '<br>';
+            area.innerHTML += hobby + '<br>';
+            area.innerHTML += user + '<br>';
+            area.innerHTML += testFunction + '<br>';
+           // area.innerHTML += testFunction(1, 2) + '<br>';
+        }
+    </script>
+
+    <hr>
+
+    <h3>3) typeof() 연산자</h3>
+    <p>
+        값의 자료형을 확인하는 연산자 <br>
+        변수는 선언시 자료형을 지정하지 않기 때문에 변수명만으로 데이터의 지료형을 확인할 수 없다. <br>
+        * 동적타입(dynamic type) : 실행중에 타입이 자유롭게 바뀔 수 있다. <br>
+        a 변수가 최초 숫자로 초기화 되었더라도 다시 문자열, 논리형으로 바뀔 수 있다. 
+    </p>
+
+    <button onclick="typeofTest();">typeof() 연산자</button>
+
+    <br><br>
+
+    <div id="area3" class="area"></div>
+
+    <script>
+        function typeofTest(){
+            var name = '아무개'
+            var age = 20;
+            var check = true;                               // 논리값
+            var hobby = ['축구', '농구', '야구'];       //배열
+            var user = {
+                name : 'ianHD',
+                age : 20,
+                id : 'ian'
+            };                                  // {} : 객체 리터럴 : new문 쓰지 않는다.
+
+            var testFunction = function(num1, num2){
+                var sum = num1 + num2;
+
+                alert(sum);
+            };
+            var temp;
+            var area = document.getElementById('area3');
+
+            area.innerHTML = '안녕하세요.<br>';
+            area.innerHTML += typeof(name) + '<br>';
+            area.innerHTML += typeof(age) + '<br>';
+            area.innerHTML += typeof(check) + '<br>';
+            area.innerHTML += typeof(hobby) + '<br>';
+            area.innerHTML += typeof(user) + '<br>';
+            area.innerHTML += typeof(testFunction) + '<br>';
+            area.innerHTML += typeof(temp) + '<br>';
+
+        }
+    </script>
+
+    <hr>
+
+    <h2>2. 데이터 형변환</h2>
+
+    <h3>1) 문자열과 숫자의 '+' 연산</h3>
+    <p>
+        문자열 + 숫자 = 문자열 <br>
+        숫자 + 숫자 + 문자열 = 문자열 
+    </p>
+
+    <button onclick="testPlus();">문자열과 숫자의 '+' 연산</button>
+    <br>
+    <br>
+
+    <div id="area2" class="area"></div>
+
+    <script>
+        function testPlus (){
+            var test1 = 7 + 7;
+            var test2 = 7 * '7';
+            var test3 = '7' + 7;
+            var test4 = '7' + '7';
+            var test5 = 7 + 7 + '7';
+            var test6 = 7 + '7' + 7;
+            var test7 = '7' + 7 + 7;
+            var test8 = '7' + (7 + 7);
+
+            var area = document.getElementById('area2');
+
+            area.innerHTML = '안녕하세요.<br>';
+            area.innerHTML += 'test1 :' + test1 + '<br>';
+            area.innerHTML += 'test2 :' + test2 + '<br>';
+            area.innerHTML += 'test3 :' + test3 + '<br>';
+            area.innerHTML += 'test4 :' + test4 + '<br>';
+            area.innerHTML += 'test5 :' + test5 + '<br>';
+            area.innerHTML += 'test6 :' + test6 + '<br>';
+            area.innerHTML += 'test7 :' + test7 + '<br>';
+            area.innerHTML += 'test8 :' + test8 + '<br>';
+            
+        }
+    </script>
+
+    <hr>
+
+    <h3>2) 강제 형변환</h3>
+
+    <button onclick="castingTest();">casting 테스트</button>
+
+    <br><br>
+
+    <div id="area4" class="area"></div>
+
+    <script>
+        function castingTest(){
+            var num1 = 2;
+            var num2 = '3';
+
+            var  area = document.getElementById('area4');
+
+            area.innerHTML = '안녕하세요,<br>';
+            area.innerHTML += (num1 + num2) + '<br>';
+            area.innerHTML += (num1 + new Number(num2)) + '<br>';   
+                // Number은 생성자 new 없이도 사용 가능 
+            area.innerHTML += (new String(num1) + new Number(num2)) + '<br>';   
+                // 23   String도 생성자이다. 자바스크립트에서 생성자는 앞 글자가 대문자  
+                // camel case : firstName / pascal case : FirstName / snake case : first_name / hungrian case ....
+            area.innerHTML += (String(true) + Number(num2)) + '<br>';   
+            area.innerHTML += (num1 + window.parseInt(num2)) + '<br>';
+            area.innerHTML += (num1 + parseFloat(num2)) + '<br>';
+            area.innerHTML += parseInt('0xff', 16) + '<br>';
+            area.innerHTML += parseInt('100', 16) + '<br>';
+            area.innerHTML += parseInt('100', 8) + '<br>';
+        }
+    </script>
+
+    <hr>
+
+    <h3>3) 논리형의 변환</h3>
+
+    <p>0, "", null, undefined, NaN 등은 모두 false를 반환한다. <br>
+        이외 다른 어떤 값이 와도 true. "0", "false" 같은 문자열도 true
+    </p>
+
+    <script>
+        if(0) {
+            document.write("참입니다");
+        }else{
+            document.write("거짓입니다")
+        }
+    </script>
+
+    <hr>
+
+    <h2>3. 연산자</h2>
+
+    <h3>1) "==" 연산자와 "===" 연산자</h3>
+    <p>
+        "=="은 값이 일치하는지 확인하는 연산자이고 <br>
+        "==="은 값과 자료형이 일치하는지를 확인하는 연산자이다. 
+    </p>
+
+    <button onclick="opTest();">연산자 테스트</button>
+
+    <br><br>
+
+    <div id="area5" class="area"></div>
+
+    <script>
+        function opTest(){
+            var num1 = 7;
+            var num2 = '7';
+
+            var area = document.getElementById('area5');
+
+            area.innerHTML = '안녕하세요. <br>';
+            area.innerHTML += '연산자 테스트 <br><br>';
+
+            area.innerHTML += 'num1 ==  7 : '  + (num1 == 7) + '<br>';
+            area.innerHTML += 'num1 ==  num2 : '  + (num1 == num2) + '<br>';
+            area.innerHTML += '7 ==  num2 : '  + (7 == num2) + '<br>';
+            area.innerHTML += '"7" ==  num2 : '  + ('7' == num2) + '<br>';
+            
+            area.innerHTML += '<br>';
+            area.innerHTML += 'num1 ===  num2 : '  + (num1 === num2) + '<br>';
+            area.innerHTML += 'num1 ===  7 : '  + (num1 === 7) + '<br>';
+            area.innerHTML += 'num1 ===  "7" : '  + (num1 === '7') + '<br>';
+            area.innerHTML += '7 ===  num2 : '  + (7 === num2) + '<br>';
+            area.innerHTML += '"7" ===  num2 : '  + ('7' === num2) + '<br>';
+
+        }
+    </script>
+
+    <hr>
+
+    <h3>2) 큰 값, 작은 값 p115</h3>
+
+    <script>
+        document.write("korea > america : " + ("korea" > "america") + "<br>");
+        document.write("Korea > america : " + ("Korea" > "america") + "<br>");
+        document.write('"한글" > "english" : ' + ("한글" > "english") + "<br>");
+        document.write('"15" > "12" : ' + ("15" > "12") + "<br>")
+        document.write('"015" > "12" : ' + ("015" > "12") + "<br>")
+        document.write('"015" > 12 : ' + ("015" > 12) + "<br>")
+        document.write('"9" > "12" : ' + ("9" > "12") + "<br>")
+        document.write('9 > "12" : ' + (9 > "12") + "<br>")
+        document.write('"9" > 12 : ' + ("9" > 12) + "<br>")
+        document.write('Number("9") > Number("12") : ' + (Number("9") > Number("12")) + "<br>")
+        
+    </script>
+
+    <hr>
+
+    <h3>3) 기타 연산자</h3>
+
+    <p>삼항 연산자 포함 그외 연산자는 java와 동일</p>
+
+    <P>Short Circuit <br>
+         : &&연산에서는 앞값이 거짓이면 뒤 연산은 더 이상 수행하지 않는다. <br>
+         : || 연산에서는 앞값이 참이면 뒤 연산을 더 이상 수행하지 않는다. <br>
+         : 그러므로 간단한 조건식을 가급적 앞쪽에 배치한다. 
+     </P>
+
+     <hr>
+     <hr>
+
+
+    <h2>4. 제어문</h2>
+
+    <h3>1) 조건문</h3>
+
+    <h4>1-1) if 문</h4>
+    <button onclick="ifTest();">if 테스트</button>
+
+    <script>
+        function ifTest(){
+            var gender = prompt('당신의 성별은 무엇입니까?', '남자 / 여자');
+
+            if(gender === '남자') {
+                alert('남자입니다.');
+            }else if (gender === '여자'){
+                alert('여자입니다.');
+            }else {
+                alert('외계인??');
+            }
+        }
+    </script>
+
+    <h4>1-2) switch 문</h4>
+    <button onclick="switchTest();">switch 테스트</button>
+
+    <script>
+        function switchTest(){
+            var day;
+            var month = Number(prompt('현재는 몇 월입니까?'));
+
+            console.log(month);
+            console.log(typeof(month));
+
+            switch (month) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                    day = 31;
+                    break;
+                case 4:          
+                case 6:          
+                case 9:          
+                case 11:          
+                    day = 30;
+                    break;
+                case 2:
+                    day = 28;   
+            }
+
+            alert(`${month} 월은 ${day}일까지 입니다,`);
+        }
+    </script>
+
+    <hr>
+
+    <h3>2) 반복문</h3>
+    <h4>2-1) for 문</h4>
+    <button onclick="forTest();">for 테스트</button>
+
+    <script>
+        function forTest(){
+            var result = '';
+
+            for(var i = 1; i <= 10; i++){
+                result += i + '  ';
+            }
+
+            alert(result);
+        }
+    </script>
+
+    <br>
+
+    <script>
+        for(var i = 0, j = 5; i < 5; i++, j += 2){
+            document.write("i = " + i + ", j = " + j + "<br>");
+        }
+    </script>
+
+    <h4>2-2) while 문</h4>
+    <button onclick="whileTest();">while 테스트</button>
+
+    <script>
+        function whileTest(){
+            var result = 0;
+            var i = 1;
+
+            while(i <= 10) {
+                result += i;
+
+                i++;
+            }
+
+            alert(result);
+
+        }
+    </script>
+
+    <h4>2-3) do-while 문</h4>
+    <button onclick="doWhileTest();">do-while 테스트</button>
+
+    <script>
+        function doWhileTest(){
+            var result = 0;
+            var i = 1;
+
+            do {
+                result += i;
+
+                i++;
+            } while(i <= 10);
+
+            alert(result);
+        }
+    </script>
+
+    <h4>2-4) for in 문 : 배열이나 객체를 순회</h4>
+
+    <button onclick="forinTest();">for in 테스트</button>
+
+    <script>
+        function forinTest(){
+            var result = ' ';
+            var array = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+            // 반복 변수의 array의 index를 리턴해서 i에 담아준다.
+            for(var i in array){
+                console.log(i);         
+                result += array[i] + ' ';
+            }
+            alert(result);
+        }
+    </script>
+
+    <hr>
+
+    <h4>2-5) 점프문(분기문)</h4>
+        교재 p 170
+
+    <h4>2-6) 무한루프</h4>
+        교재 p 175
+
+    <hr>
+
+    <h2>5. 예외처리</h2>
+        교재 p 179 ~ 187
+
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+
+</body>
+</html>

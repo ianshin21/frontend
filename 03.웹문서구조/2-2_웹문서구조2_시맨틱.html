@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 문서 구조</title>
+    <style>
+        body * {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+        }
+
+        header {
+            height: 20%
+        }
+
+        section {
+            height: 60%
+        }
+
+        footer {
+            height: 20%
+        }
+
+        section>article {
+            height: 100%;
+            float: left;
+        }
+
+        #content_1 {
+            width: 15%
+        }
+
+        #content_2 {
+            width: 65%
+        }
+
+        #content_3 {
+            width: 20%
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header></header>
+        <section>
+            <article id="content_1"></article>
+            <article id="content_2"></article>
+            <article id="content_3"></article>
+        </section>
+        <footer></footer>
+    </div>
+</body>
+
+</html>

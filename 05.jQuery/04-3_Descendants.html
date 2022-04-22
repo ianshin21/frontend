@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Descentdants 메소드</title>
+    <script src="js/jquery-3.5.1.js"></script>
+    <style>
+        .wrap, .wrap * {                             
+            border: 1px solid lightgray;
+            display: block;
+            padding: 5px;
+            margin: 15px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Descentdants 메소드</h1>
+
+    <hr>
+
+    <h2>Descentdants 메소드</h2>
+    <p>
+        선택된 요소의 하위 요소들을 선택할 수 있는 메소
+    </p>
+
+    <h3>문단0</h3>
+    <h3>문단1</h3>
+    <h3>문단2</h3>
+    <h3>문단3</h3>
+    <h3>문단4</h3>
+
+    <div class="wrap">
+        <div>div
+            <ul>ul
+                <li>li
+                    <span>span</span>
+                </li>
+            </ul>
+        </div>
+
+        <div>div
+            <p>p
+                <span>span</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // 별도의 객체로 미리 스타일을 작성해 놓기
+            var style1 = {"color":"red", "border" : "2px solid red"};
+            var style2 = {"color":"blue", "border" : "2px solid blue"};
+            var style3 = {"color":"green", "border" : "2px solid green"};
+
+            //클래스명이 wrap인 태그의 자손(다음 레벨의 div들)의 스타일 변경
+            $('.wrap').children().css(style1);
+            
+            //클래스명이 wrap인 태그의 자손의 자손(다음 레벨의 div들)의 스타일 변경
+            $('.wrap').children().children().css(style2);
+            
+            // 
+            //클래스명이 wrap인 태그의 자손의 자손 중 ul 태그의 스타일 변경
+            $('.wrap').children().children('ul').css(style3);
+            
+            //클래스명이 wrap인 태그의 자손의 자손 중 li 태그의 스타일 변경
+            $('.wrap').children().children().children('li').css({'color':'yellow', "border" : "2px solid yellow"});
+            
+            // 
+            //클래스명이 wrap인 태그의 모든 후손 중 span 태그의 스타일 변경
+            $('.wrap').find('span').css({'color':'purple', "border" : "2px solid purple"});
+            
+
+        });
+    </script>
+
+    <script>
+        var arColor = ['yellow', 'red', 'green', 'blue', 'gray'];
+        $('h3').each(function(index, item){
+            $(item).css('background', arColor[index]);
+            // $(this).css('background', arColor[index]);
+        });
+
+        // function setColor(index, item){
+        //     $(item).css('background', arColor[index]);
+        // }
+        // $('h3').each(setColor);
+
+
+    </script>
+</body>
+</html>

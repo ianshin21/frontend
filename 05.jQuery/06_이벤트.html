@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이벤트</title>
+    <script src="js/jquery-3.5.1.js"></script>
+
+    <style>
+        .area {
+            width: 150px;
+            height: 50px;
+            border: 1px solid;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>이벤트</h1>
+
+    <hr>
+
+    <h2>이벤트 연결</h2>
+
+    <h3>on( )와 off( )</h3>
+    <p>
+        on() : 이벤트 연결 / off() : 연결된 이벤트 제거
+    </p>
+
+    <div id="area1" class="area"></div>
+
+    <script>
+        $(function(){
+            $("#area1").on({
+                'mouseenter': function(){
+                    $(this).css("background", "beige").text("마우스가 올라감")
+                    console.log('mouseenter');
+                },
+                'mouseleave': function(){
+                    $(this).css("background", "tomato").text("마우스가 내려감")
+                    console.log('mouseleave');
+                },
+                'click': function(){
+                    $(this).off("mouseenter")
+                            .off("mouseleave")
+                            .css("background", "white").text('');
+                    console.log('click');
+                }
+            });
+        })
+    </script>
+
+    <hr>
+
+    <h3>one()</h3>
+    <p>
+        이벤트를 한번만 연결할 때 사용하는 메소드
+    </p>
+
+    <div id="area2" class="area"></div>
+
+    <script>
+        $(document).ready(function(){
+            $("#area2").one('click', function(){
+                alert('처음이자 마지막으로 이벤트 핸들러 실행')
+            }).css('cusor', 'pointer');
+        });
+    </script>
+
+    <hr>
+
+    <h3>키보드 이벤트</h3>
+    <h4>keydown( ), keypress(), keyup</h4>
+
+    <textarea id="textarea1" cols="40" rows="5"></textarea>
+
+    <script>
+        $(function(){
+            // 키보드가 눌렸을 때
+            $("#textarea1").keydown(function(e){
+                console.log(`keydown > e.key : ${e.key}, e.keyCode  : ${ e.keyCode}`);
+            })
+            // 글자가 입력될 때 (한글, 평션키, 기능키 사용 안됨)
+            $("#textarea1").keypress(function(e){
+                console.log(`keypress > e.key : ${e.key}, e.keyCode  : ${ e.keyCode}`);
+            })
+            // 키보드가 떼어질 때
+            $("#textarea1").keyup(function(e){
+                console.log(`keyup > e.key : ${e.key}, e.keyCode  : ${ e.keyCode}`);
+            });
+        });
+    </script>
+
+    <h4>동적으로 글자 수 세기</h4>
+
+    <div>
+        <p><span id="counter">0</span>/<span id="maxLength">100</span></p>
+        <textarea id="textarea2" cols="70" rows="5"></textarea>
+    </div>
+
+    <script>
+        $(function(){
+            $("#textarea2").on("keyup", function(){
+               var inputLength = $(this).val().length;
+
+               console.log(inputLength);
+               $('#counter').text(inputLength);
+
+               var remain =  $("#maxLength").text() - inputLength;
+
+               if(remain < 0){
+                   $("#counter").css("color", "red");
+               }else {
+                   $("#counter").css("color", "black");
+               }
+            });
+        })
+    </script>
+
+    <h4>동적으로 아이디 조건 확인</h4>
+    <p>
+        - 첫글자는 반드시 영문 소문자 <br>
+        - 영문 소문자와 숫자로만 이루어진다. <br>
+        - 총 4 ~ 12자
+    </p>
+
+    <label>아이디 : <input type="text" id="memberId"></label>
+    <span id="idCheck"></span>
+
+    <script>
+        $(document).ready(function(){
+            var regExp = /^[a-z][a-z\d]{3,11}$/;
+
+            $("#memberId").keyup(function(){
+               var memberId = $(this).val();
+
+               console.log(memberId);
+
+               if(regExp.test(memberId)){
+                   $("#idCheck").css({"color": "green", "font-weight": 'bold'})
+                                    .text("사용 가능한 아이디 형식입니다.")
+               }else {
+                    $("#idCheck").css({"color": "red", "font-weight": 'bold'})
+                                    .text("사용 할 수 없는 아이디 형식입니다.")
+               }
+            });
+        });
+    </script>
+
+    <hr>
+
+    <h3>trigger() 메소드</h3>
+    <p>
+        특정 이벤트나 기본 이벤트를 강제로 발생시키는 메소드 
+    </p>
+
+    <div id="area3" class="area">
+        clicked Num : <span id="counter2">0</span>
+    </div>
+
+    <br>
+
+    <button id="test1">실행확인</button>
+
+    <script>
+        
+        $(function(){
+            $("#test1").on('click', function(){
+               var counter = parseInt( $("#counter2").text()) 
+               
+               $("#counter2").text(++counter);
+            });
+
+            $("#area3").on('click', function(){
+                $("#test1").trigger('click');
+            });
+        });
+    </script>
+
+
+    <br><br><br><br>
+</body>
+</html>

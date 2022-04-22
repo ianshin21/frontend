@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Object Model</title>
+    <style>
+        .area {
+            border: 1px solid purple;
+            min-height: 100px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document Object Model</h1>
+
+    <hr>
+
+    <h4>노드 객체</h4>
+    <p>p428     nodeType, nodeName, nodeValue</p>
+    <p>p430     node의 속성 : 주변노드 찾기 firstChild, lastChild . . .</p>
+    <p>p434     node의 메소드 : 노드의 내용이나 구조 변경 appendChild(), insertBefore() ..</p>
+
+    <h4>Document 객체</h4>
+    <p>p434     HTML 관련 속성 : 이름, 경로 등 문서화일 자체에 대한 정보 title, url, ..</p>
+    <p>p436     노드를 생성하는 메소드: createElement, createTextNode ..</p>
+
+    <h4>Element 객체 / Attr 객체</h4>
+    <p>HTML 태그를 표현, 텍스트나 주석 등의 차일드, 다른 엘리먼트 포함</p>
+    <p>p437-438 속성과 메소드 </p>
+
+    <hr> 
+
+    <h2>Dom 활용</h2>
+
+    <p>노드 찾기1 : getElementById(), getElementsByTagName(), getElementsByClassName()</p>
+    <p>노드 찾기2 : node 속성으로 찾기 : firstChild ..</p>
+    <p>노드 속성 확인 : nodeName, nodeType ..</p>
+    <p>노드 내용 읽기 : nodeValue, textContent, innerHTML, innerText, ouerText, outerHTML</p>
+    <p>노드 내용 편집 : nodeValue, textContent, innerHTML, innerText, ouerText, outerHTML</p>
+    <p>노드 추가1 : Document 메소드에서 createElement(), createTextNode(), createAttribute(), createComment()</p>
+    <p>노드 추가2 : 노드 메소드에서 appendChild(), insertBefore(), cloneNode() </p>
+    <p>속성 추가 : getAttribute(), setAttribute()</p>
+    <p>삭제 : 노드 메소드에서 removeChild(), replaceChild()</p>
+    <p>스타일 편집 : style.color, style.backgroundColor, style.fontSize ..</p>
+    <hr>
+
+    <h2>Node 객체</h2>
+
+    <h3>텍스트 노드가 있는 노드 생성</h3>
+    <button onclick="test1();">실행확인</button>
+    <div  id="area1" class="area"></div>
+
+    <script>
+        function test1(){
+
+            // element 생성
+            var title = document.createElement('h3');
+            // text 노드 생성
+            var textNode = document.createTextNode('안녕하세요.')
+
+            title.appendChild(textNode);
+
+            document.getElementById('area1').appendChild(title);
+
+        }
+    </script>
+
+
+    <h3>텍스트 노드가 없는 노드 생성</h3>
+    <button onclick="test2();">실행확인</button>
+    <div id="area2" class="area"></div>
+
+    <script>
+        function test2(){
+            // element 생성
+            var img = document.createElement('img');
+
+            // 속성 지정
+            img.src = '../resources/image/flower1.PNG';
+            img.width = '150';
+            img.height = '100';
+            // img.myProperty = 'P123';
+            img.setAttribute('myProperty', 'P123');
+
+            document.getElementById('area2').appendChild(img);
+        }
+    </script>
+
+
+
+    <h2>스타일 지정</h2>
+
+    <button onclick="test3();">실행확인</button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        function test3(){
+            var area = document.getElementById('area3');
+
+            area.style.backgroundColor = 'black';
+            area.style.borderRadius = '100px';
+            area.style.transition = 'all 10s';
+        }
+    </script>
+
+
+    <h2>노드 삭제</h2>
+    <button onclick="test4();">실행확인</button>
+    <div class="area" id="area4"></div>
+
+    <script>
+        function test4(){
+            document.getElementById('area4').remove();
+            document.body.removeChild(document.getElementById('area3'));
+            document.getElementById('area1').parentNode.removeChild(document.getElementById('area2'));
+        }
+    </script>
+
+
+    <br><br><br><br><br>
+</body>
+</html>

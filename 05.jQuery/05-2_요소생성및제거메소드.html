@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>요소 생성 및 제거 메소드</title>
+    <script src="js/jquery-3.5.1.js"></script>
+    <style>
+        .added {
+            color: chartreuse;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            display: inline-block;
+            text-align: center;
+            line-height: 100px;
+            background: greenyellow;
+        }
+
+        .item span {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .limegreen {
+            background-color: limegreen;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>요소 생성 및 제거 메소드</h1>
+
+    <hr>
+
+    <h2>요소 생성</h2>
+
+    <div id="area1"></div>
+
+    <script>
+        $(document).ready(function(){
+            // 1. 문자열로 만드는 방법
+            var p1 = '<p>Create Element By Text</p>';
+
+            // 2. DOM 메소드로 만드는 방법
+            var p2 = document.createElement("p");
+            var textNode = document.createTextNode("Create Element By DOM");
+
+            p2.appendChild(textNode);
+
+            //3. jQuery 로 만드는 방법
+            var p3= $("<p/>").text('Create Element By JQuery');
+
+             //4. jQuery 로 만드는 방법2
+             var p4 = $("<p>Create Element By JQuery2</p>");
+
+             console.log(p1);
+             console.log(p2);
+             console.log(p3);
+             console.log(p4);
+
+             $('#area1').append(p1, p2, p3, p4);
+              $('#area1').prepend(p1);
+            //   $('#area1').prepend(p2);
+             $('#area1').prepend(p4);
+             $('#area1').prepend(p4);
+              $('#area1').prepend(p3);
+        });
+    </script>
+
+    <hr>
+
+    <h2>요소 삽입 관련 메소드1</h2>
+    <p>
+        선택자 요소를 기준으로 매개변수에 제시된 생성된 요소를 추가하는 메소드 <br><br>
+    </p>
+
+    <h1 id="test1"><span>A</span></h1>
+    <h1 id="test2"><span>A</span></h1>
+    <h1 id="test3"><span>A</span></h1>
+    <hr>
+    <h1 id="test4"><span>A</span></h1>
+
+    <script>
+        $(document).ready(function(){
+            // $(A).append(B) : A 요소의 자식요소로 B를 추가
+            $("#test1").append("<span class='added'>B</span>")
+
+            // $(A).prepend(B) : A 요소의 자식요소로 B를 앞에 추가
+            $("#test2").prepend("<span class='added'>B</span>")
+
+            // $(A).after(B) : A 요소의 형제 요소로 B를 뒤에 추가
+            $("#test3").after("<span class='added'>B</span>")
+
+            // $(A).before(B) : A 요소의 형제 요소로 B를 앞에 추가
+            $("#test4").before("<span class='added'>B</span>")
+        });
+    </script>
+
+    <hr>
+
+    <h2>요소 삽입 관련 메소드2</h2>
+    <p>
+        해당 요소를 매개변수로 지정한 선택자의 요소에 추가하는 메소드 <br>
+        (요소 삽입 관련 메소드1과 순서가 반대 )
+    </p>
+
+    <h1 id="test5"><span>A</span></h1>
+    <h1 id="test6"><span>A</span></h1>
+    <h1 id="test7"><span>A</span></h1>
+    <hr>
+    
+    <h1 id="test8"><span>A</span></h1>
+
+    <script>
+        $(document).ready(function(){
+            // $(A).appendTo(B) : A 요소를 B요소의 자식요소로 뒤에 추가
+            $("<span class='added'>B</span>").appendTo($("#test5"));
+            
+           // $(A).prependTo(B) : A 요소를 B요소의 자식요소로 앞에 추가
+           $("<span class='added'>B</span>").prependTo($("#test6"));
+
+             // $(A).insertAfter(B) : A 요소를 B요소의 형제요소로 뒤에 추가
+             $("<span class='added'>B</span>").insertAfter($("#test7"));
+
+            // $(A).insertBefore(B) : A 요소를 B요소의 형제요소로 앞에 추가
+            $("<span class='added'>B</span>").insertBefore($("#test8"));
+
+        })
+    </script>
+
+    <hr>
+
+    <h2>요소 복제 매소드</h2>
+    <p>
+        선택된 요소를 복사하는 메소드 <br>
+        선택된 요소의 이벤트까지도 복사할 것인지 지정할 수 있다. (생략시 false)
+    </p>
+
+    <button id="clone">복제</button>
+
+    <div id="clone-test">
+        <div id="item1" class="item">
+            <span>안녕</span>
+        </div>
+    </div>
+
+    <div id="clone-result"></div>
+
+    <script>
+        $(document).ready(function(){
+
+            // 복제할 요소에 이벤트 추가
+            $("#item1").hover(
+                // function(){
+                //     $(this).addClass("limegreen");       // 해당 요소에 클래스 속성값을 추가하는 메소드        
+                                                                    //  <div id="item1" class="item limegreen"> 이렇게 됨
+                // },
+
+                // function(){
+                //     $(this).removeClass("limegreen");    // 해당 요소에 클래스 속성값을 제거하는 메소드
+                // }                                                     //  <div id="item1" class="item"> 다시 이렇게 됨
+                function(){
+                    $(this).toggleClass("limegreen");       // 해당 요소에 클래스 속성값을 추가/삭제하는 메소드
+                }
+            );
+
+            $("#clone").click(function(){
+                // alert("복제 버튼 클릭");
+
+                var copy = $("#item1").clone(true);            // true 라고 하면 이벤트도 복사. 아무것도 없으면 false
+
+                $("#clone-result").append(copy);
+
+                // 아래와 같이 작성시 $("#item1") 요소의 위치가 이동한다. 새로운 div에 들어감
+                $("#clone-result").append($("#item1"));
+            });
+        });
+    </script>
+
+    <hr>
+
+    <h2>요소 제거 메소드</h2>
+    <p>
+        선택된 요소, 하위 요소를 제거하는 메소드 
+    </p>
+
+    <button id="empty">empty</button>
+    <button id="remove">remove</button>
+    <button id="detach">detach</button>
+    <br>
+    <br>
+
+    <div id="remove-test">
+        <div id="item2" class="item">
+            <span>안녕</span>
+        </div>
+    </div>
+
+    <div id="remove-result"></div>
+
+    <script>
+        $(function(){
+            // id가 item2에 이벤트 추가
+            $("#item2").hover(
+                function(){
+                    $(this).toggleClass("limegreen");      
+                }
+            );
+
+            //empty 테스트
+            // 요소.empty() : 선택된 요소의 자식 요소(span/내용 : 여기서는 '안녕') 제거
+            $("#empty").click(function(){
+                $("#item2").empty();
+                // $("#remove-test").empty();       //         <div id="item2" class="item"> 이거 지움
+            });
+
+            //remove test
+            // 요소.remove() : 선택된 요소를 제거 후 제거된 요소를 나중에 리턴받을 수 있다. 단 리터되는 요소의 이벤트는 삭제
+            $("#remove").click(function(){
+              var el = $("#item2").remove();
+              console.log(el);
+              $("#remove-result").html(el);
+            });
+
+            //detach 테스트
+            // 요소.detach() : 선택된 요소를 제거 후 제거된 요소를 나중에 리턴받을 수 있다. 단 리터되는 요소의 이벤트는 삭제하지 않는다. 
+            $("#detach").click(function(){
+              var el = $("#item2").detach();
+              console.log(el);
+              $("#remove-result").html(el);    
+            });   
+        });
+    </script>
+
+
+    <br><br><br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개요 실습문제</title>
+    <script src="js/practice1.js"></script>
+    <style>
+        .div-test {
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            overflow:scroll;
+        }
+
+        td {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>개요 실습문제</h1>
+    <hr>
+
+    
+    <h2>문제1. 색상 조절하기 </h2>
+    <p>
+        색상 선택후 변경 버튼을 클릭하면 색상이 변경되도록 만들기
+    </p>
+    <div id="div1" class="div-test"></div>
+    <input type="color" id="selectColor">
+    <button onclick="changeColor();">변경</button>
+    
+    <hr>
+    
+    <h2>문제2. 크기 변경하기</h2>
+    <p>
+        버튼에 따른 크기 조절이 가능하도록 만들기
+    </p>
+    <div id="div2" class="div-test"></div>
+    <button onclick="changeSize1();">50X50</button>
+    <button onclick="changeSize2();">원본(100X10)</button>
+    <button onclick="changeSize3();">200X200</button>
+    
+    <script>
+
+        div2 = document.getElementById('div2');
+
+
+        function changeSize1(){
+
+            console.log(div2);
+
+            div2.style.width = "50px";
+            div2.style.height = '50px';
+        }
+
+        function changeSize2(){
+
+            console.log(div2);
+
+            div2.style.width = "100px";
+            div2.style.height = '10px';
+        }
+
+        function changeSize3(){
+
+            console.log(div2);
+
+            div2.style.width = "200px";
+            div2.style.height = '200px';
+        }
+
+    </script>
+    <hr>
+
+    <h2>문제3. 테이블 만들기</h2>
+    <p>
+        prompt()로 사용자로부터 행과 열의 개수를 입력받아 테이블 만들기 
+        아래의 div 태그에 innerHTML 속성을 사용해서 만들어진 테이블을 포함시킨다.
+    </p>
+
+    <button onclick="makeTable();">테이블 생성</button>
+    <div id="div3"></div>
+
+    <script>
+        function makeTable(){
+            var row = prompt('테이블 행의 개수?');
+            var col = prompt('테이블 열의 개수?');
+            var table = '<table border="1">';
+            var count = 1;
+
+            console.log(row, col);
+
+            for (var i = 0; i < row; i++){
+                table += '<tr>';
+
+                for (var j = 0; j < col; j++){
+                    table += '<td>' + count  + '</td>';
+
+                    count++;
+                }
+                table += '</tr>';
+            }
+            table += '</table>';
+
+            document.getElementById('div3').innerHTML = table;
+
+        }
+
+    </script>
+
+    <br><br><br><br><br>
+</body>
+</html>

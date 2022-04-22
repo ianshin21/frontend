@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>기본문법_실습</title>
+    <style>
+        div {
+            border: 1px solid red;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>기본문법_실습</h1>
+
+    <hr>
+
+    <h2>문제1. 텍스트 필드에 작성한 문자열의 길이를 구하기</h2>
+    
+    <!-- 문자열에서 제공하는 함수 중 하나를 사용해서 문제를 풀어보세요! -->
+    <fieldset>
+    	<legend>보기</legend>
+    	<input type="text" placeholder="글자를 작성해보세요" size=100 id="text1">
+    </fieldset>
+    
+    <br>
+
+    <div id="result1"></div>
+
+    <br>
+
+    <button onclick="textLength();"> 확인하기</button>
+
+    <script>
+        function textLength(){
+
+            var str = document.getElementById("text1").value;
+
+            console.log(str);
+
+            var area = document.getElementById("result1");
+            area.innerHTML = `문자열의 길이는 ${str.length}입니다`;
+
+            // area.innerHTML = '보기의 문자열 길이는' + str.length + '글자 입니다';
+            // document.getElementById('result1').innerHTML = '문자열의 길이는 ' + str.length + '입니다';
+ 
+            // 비우고 포커스 넣기
+            document.getElementById("text1").value = '';
+            document.getElementById("text1").focus();
+
+        }
+    </script>
+    
+    <hr>
+
+    <h2>문제2. 다음 보기에 있는 문자열을 콤마(,)를 기준으로 잘라내어 하나하나 출력</h2>
+
+    <!-- 문자열에서 제공하는 함수 중 하나를 사용해서 문제를 풀어보세요! -->
+    <fieldset>
+    	<legend>보기</legend>
+      	<label id="la1">콜라,사이다,햄버거,피자,한약</label>
+    </fieldset>
+    
+    <br>
+    
+    <div id="result2"> </div>
+    
+    <br>
+
+    <button onclick="stringSplit();"> 확인하기</button>
+
+    <script>
+        function stringSplit(){
+            var label = document.getElementById('la1');
+            var arr = label.innerHTML.split(',');
+            var resultDiv = document.getElementById('result2');
+
+            console.log(arr);
+            console.log(typeof(arr));
+
+            for (var i =0; i < arr.length; i++){
+                resultDiv.innerHTML += `${i + 1}. ${arr[i]} <br>`;
+            }
+
+
+        }
+    </script>
+
+    <hr>
+
+    <h2>문제3. 간이 계산기 만들기</h2>
+
+    <!-- hint. java 배울 때 풀어본것같네요??ㅎㅎ 아닐수도 있어요..-->
+    <fieldset>
+        <label>첫번째 값 : <input type="number" id="num1"></label><br>
+        <label>두번째 값 : <input type="number" id="num2"></label><br>
+    </fieldset>
+
+    <br>
+
+	<input type="button" value="+" onclick="calculator(this.value)"> 
+	<input type="button" value="-" onclick="calculator(this.value)"> 
+	<input type="button" value="x" onclick="calculator(this.value)"> 
+	<input type="button" value="/" onclick="calculator(this.value)"> 
+    <input type="button" value="%" onclick="calculator(this.value)"> 
+    
+    <br><br>
+       
+    계산결과 : <span id="calc"></span>
+
+    <script>
+        function calculator(op) {
+            var num1 = Number(document.getElementById("num1").value);
+            var num2 = Number(document.getElementById("num2").value);
+            var result = 0;
+
+            console.log(num1);
+            console.log(typeof(num1));
+            console.log(num2);
+            console.log(typeof(num2));
+            console.log(op);
+
+            switch (op) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case 'x':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num1 / num2;
+                    break;
+                case '%':
+                    result = num1 % num2;
+                    break;           
+            }
+
+            console.log(result);
+            document.getElementById('calc').innerHTML = result;
+        
+        }
+    </script>
+
+    
+</body>
+</html>
